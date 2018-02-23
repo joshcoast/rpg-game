@@ -18,9 +18,7 @@ var opponentsLeft;
 var selectYourAvatar = {
 	clickAvatar: function() {
 		$('.choose-your-fighter div[class*="avatar"]').on('click', function(){
-			$(this).addClass('itsmememe');
-			var element = $(this).detach();
-			$('.active-user-fighter').append(element);
+			$(this).remove().appendTo(".active-user-fighter");
 			$('.fighting-ring').show();
 		})
 	}
