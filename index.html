@@ -15,71 +15,22 @@
 
 <body>
   <div class="container-fluid">
+    <div class="test">
+    </div>
+
     <h1 class="text-right">Star Wars RPG</h1>
 
-    <div class="choose-your-fighter">
-      <h2>Choose Your Fighter</h2>
+    <div class="avatar-shelf">
+      <h2 class="shelf-title">Choose Your Fighter</h2>
       <div class="row text-center mb-4">
-        <div class="col avatar-darth">
-          <div class="hit-points">150</div>
-          <img src="assets/images/darth.png">
-          <span>Darth Vader</span>
-        </div>
-        <div class="col avatar-obi">
-          <div class="hit-points">150</div>
-          <img src="assets/images/obi.png">
-          <span>Obi-Wan Kenobi</span>
-        </div>
-        <div class="col avatar-leia">
-          <div class="hit-points">150</div>
-          <img src="assets/images/princes-leia.png">
-          <span>Princes Leia</span>
-        </div>
-        <div class="col avatar-r2d2">
-          <div class="hit-points">150</div>
-          <img src="assets/images/r2d2.png">
-          <span>R2-D2</span>
-        </div>
-        <div class="col avatar-storm">
-          <div class="hit-points">150</div>
-          <img src="assets/images/storm.png">
-          <span>Storm Trouper</span>
-        </div>
       </div>
     </div>
 
-    <div class="pick-a-fight">
-      <h2>Pick a Fight</h2>
-      <div class="row text-center mb-4">
-        <div class="col avatar-darth">
-          <div class="hit-points">150</div>
-          <img src="assets/images/darth.png">
-          <span>Darth Vader</span>
-        </div>
-        <div class="col avatar-obi">
-          <div class="hit-points">150</div>
-          <img src="assets/images/obi.png">
-          <span>Obi-Wan Kenobi</span>
-        </div>
-        <div class="col avatar-leia">
-          <div class="hit-points">150</div>
-          <img src="assets/images/princes-leia.png">
-          <span>Princes Leia</span>
-        </div>
-        <div class="col avatar-r2d2">
-          <div class="hit-points">150</div>
-          <img src="assets/images/r2d2.png">
-          <span>R2-D2</span>
-        </div>
-        <div class="col avatar-storm">
-          <div class="hit-points">150</div>
-          <img src="assets/images/storm.png">
-          <span>Storm Trouper</span>
-        </div>
-      </div>
+    <div class="alert alert-danger hide" role="alert">
+      This is a danger alert—check it out!
     </div>
 
-    <div class="fighting-ring row align-items-center mb-4">
+    <div class="fighting-ring hide row align-items-center mb-4">
       <div class="col">
         <h2>Your Fighter</h2>
         <div class="active-user-fighter text-center">
@@ -94,6 +45,9 @@
         <h2>The Defender</h2>
         <div class="active-opponent-fighter text-center">
         </div>
+      </div>
+      <div class="col-12 m-4 align-items-center">
+      <button type="button" class="reset-button btn btn-info">Reset</button>
       </div>
     </div>
   </div>

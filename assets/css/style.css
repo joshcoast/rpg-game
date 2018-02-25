@@ -16,9 +16,7 @@ img {
 	width: 100%;
 }
 
-/* Game Views */
-
-.pick-a-fight,
-.fighting-ring {
-	display: none;
+.hide {
+	display: none !important;
 }
+
