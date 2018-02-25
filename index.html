@@ -14,43 +14,63 @@
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="main container-fluid">
     <div class="test">
     </div>
 
-    <h1 class="text-right">Star Wars RPG</h1>
-
     <div class="avatar-shelf">
-      <h2 class="shelf-title">Choose Your Fighter</h2>
-      <div class="row text-center mb-4">
+      <h2 class="shelfTitle area-title">Choose Your Fighter</h2>
+      <div class="row text-center mb-4 no-gutters">
       </div>
     </div>
 
-    <div class="alert alert-danger hide" role="alert">
-      This is a danger alert—check it out!
+
+    <div class="fighting-ring hide">
+      <h2 class="area-title">Fighting Ring</h2>
+      <div class="row no-gutters mb-4">
+        <div class="col-6 d-flex align-items-stretch">
+          <div class="fight-ring-avatar text-center">
+            <h2>Your Fighter</h2>
+            <div class="active-user-fighter">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 d-flex align-items-stretch">
+          <div class="fight-ring-avatar text-center">
+            <h2>The Defender</h2>
+            <div class="active-opponent-fighter">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="fighting-ring hide row align-items-center mb-4">
-      <div class="col">
-        <h2>Your Fighter</h2>
-        <div class="active-user-fighter text-center">
-        </div>
+    <div class="row fight-controls mb-4 hide">
+      <div class="col text-right">
+        <button type="button" class="attack-button btn btn-danger">Fight!</button>
       </div>
-
-      <div class="col text-center">
-        <button type="button" class="attack-button btn btn-danger">Attack!</button>
-      </div>
-
-      <div class="col">
-        <h2>The Defender</h2>
-        <div class="active-opponent-fighter text-center">
-        </div>
-      </div>
-      <div class="col-12 m-4 align-items-center">
-      <button type="button" class="reset-button btn btn-info">Reset</button>
+      <div class="col text-left">
+        <button type="button" class="reset-button btn btn-info">Reset</button>
       </div>
     </div>
   </div>
+
+  <div class="message-area">
+    <div class="message">
+      When you choose your fighter, careful you must be. For the fighter chooses back.
+    </div>
+    <img src="./assets/images/yoda.png" alt="yoda">
+  </div>
+
+  <div class="win-screen hide">
+    <div class="win-screen-inside">
+      <h1>Powerful you have become, the dark side I sense in you.</h1>
+      <img src="./assets/images/yoda.png" alt="yoda">
+      <button type="button" class="reset-button btn btn-info">Play Again</button>
+    </div>
+  </div>
+
   <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="assets/javascript/game.js"></script>

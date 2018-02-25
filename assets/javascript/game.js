@@ -9,9 +9,9 @@ window.onload = function() {
 // Create Avatar Objects
 var avatar0 = {
   name: "Obi-Wan Kenobi",
-  hitPoints: 25,
-  damage: 6,
-  counterAttack: 15,
+  hitPoints: 160,
+  damage: 8,
+  counterAttack: 12,
   imagePath: "assets/images/obi.png",
   cssClass: "avatar-obi",
   dataAttr: "avatar0",
@@ -19,9 +19,9 @@ var avatar0 = {
 };
 var avatar1 = {
   name: "Darth Vader",
-  hitPoints: 150,
-  damage: 6,
-  counterAttack: 15,
+  hitPoints: 200,
+  damage: 3,
+  counterAttack: 14,
   imagePath: "assets/images/darth.png",
   cssClass: "avatar-darth",
   dataAttr: "avatar1",
@@ -29,9 +29,9 @@ var avatar1 = {
 };
 var avatar2 = {
   name: "Princes Leia",
-  hitPoints: 175,
-  damage: 6,
-  counterAttack: 15,
+  hitPoints: 115,
+  damage: 12,
+  counterAttack: 19,
   imagePath: "assets/images/princes-leia.png",
   cssClass: "avatar-leia",
   dataAttr: "avatar2",
@@ -39,9 +39,9 @@ var avatar2 = {
 };
 var avatar3 = {
   name: "R2-D2",
-  hitPoints: 200,
-  damage: 6,
-  counterAttack: 15,
+  hitPoints: 155,
+  damage: 9,
+  counterAttack: 3,
   imagePath: "assets/images/r2d2.png",
   cssClass: "avatar-r2d2",
   dataAttr: "avatar3",
@@ -49,15 +49,25 @@ var avatar3 = {
 };
 var avatar4 = {
   name: "Storm Trouper",
-  hitPoints: 925,
-  damage: 6,
-  counterAttack: 15,
+  hitPoints: 100,
+  damage: 8,
+  counterAttack: 8,
   imagePath: "assets/images/storm.png",
   cssClass: "avatar-obi",
   dataAttr: "avatar4",
   pronoun: "His"
 };
-var allAvatars = [avatar0, avatar1, avatar2, avatar3, avatar4];
+var avatar5 = {
+  name: "Boba Fett",
+  hitPoints: 170,
+  damage: 7,
+  counterAttack: 15,
+  imagePath: "assets/images/boba-fett.png",
+  cssClass: "avatar-boba",
+  dataAttr: "avatar5",
+  pronoun: "His"
+};
+var allAvatars = [avatar0, avatar1, avatar2, avatar3, avatar4, avatar5];
 
 var starWars = {
   // initialize settings
@@ -69,6 +79,7 @@ var starWars = {
   userHP: 0,
   opponentDamage: 0,
   opponentHP: 0,
+  opponentsLeft: 0,
 
   // -- Reset Game
   resetGame: function() {
@@ -76,12 +87,18 @@ var starWars = {
     starWars.activeOpponentAvatar = "avatar0";
     starWars.firstPick = true;
     starWars.fightActive = false;
-    (starWars.userDamage = 0),
-		(starWars.userHP = 0),
-		(starWars.opponentDamage = 0),
-		(starWars.opponentHP = 0),
+    starWars.userDamage = 0,
+		starWars.userHP = 0,
+		starWars.opponentDamage = 0,
+    starWars.opponentHP = 0,
+    starWars.opponentsLeft = 0,
+    //starWars.alertDanger("When you choose your fighter, careful you must be. For the fighter chooses back.");
+    
+    $('.message-area').removeClass('visually-hidden');
+    $(".win-screen").addClass("hide");
+    $(".fight-controls").addClass("hide");
 		$(".fighting-ring").addClass("hide");
-    $(".shelf-title").text("Choose Your Fighter");
+    $(".shelfTitle").text("Choose Your Fighter");
     $(".avatar-shelf > div").empty();
     $(".active-user-fighter").empty();
     $(".active-opponent-fighter").empty();
@@ -91,17 +108,17 @@ var starWars = {
   // -- Return html for an avatar object
   buildAvatarHTML: function(theAvatar) {
     return (
-      '<div class="col avatar ' +
+      '<div class="avatar col-4 col-sm-3 col-md-2 d-flex align-items-stretch ' +
       theAvatar.cssClass +
       '" data-avatar="' +
       theAvatar.dataAttr +
-      '"> <div class="hit-points">' +
+      '"> <div class="avatar-inner"><div class="hit-points">' +
       theAvatar.hitPoints +
       '</div> <img src="' +
       theAvatar.imagePath +
       '"> <span>' +
       theAvatar.name +
-      "</span> </div>"
+      "</span> </div></div>"
     );
   },
 
@@ -119,26 +136,33 @@ var starWars = {
       // Select User Fighter
       starWars.activeUserAvatar = $(this).data("avatar");
       starWars.activeUserAvatar = allAvatars[starWars.getAvatarIndex(starWars.activeUserAvatar)];
-      $(this).remove().appendTo(".active-user-fighter");
-      $(".shelf-title").text("Choose an Opponent");
-			$(".fighting-ring").removeClass("hide");
+      $(this)
+        .removeClass("col-4 col-sm-3 col-md-2")
+        .remove()
+        .appendTo(".active-user-fighter");
+      $(".shelfTitle").text("Choose an Opponent");
+      $(".fighting-ring").removeClass("hide");
+      $(".fight-controls").removeClass("hide");
 			starWars.userDamage = starWars.activeUserAvatar.damage;
 			starWars.userHP = starWars.activeUserAvatar.hitPoints;
       starWars.firstPick = false;
+      starWars.opponentsLeft = allAvatars.length - 1;
     } else if (!starWars.fightActive) {
 
       // Select Opponent
       starWars.activeOpponentAvatar = $(this).data("avatar");
       starWars.activeOpponentAvatar = allAvatars[starWars.getAvatarIndex(starWars.activeOpponentAvatar)];
       $(this)
+        .removeClass("col-4 col-sm-3 col-md-2")
         .remove()
 				.appendTo(".active-opponent-fighter");
 			starWars.opponentHP = starWars.activeOpponentAvatar.hitPoints;
       starWars.fightActive = true;
+      starWars.opponentsLeft = starWars.opponentsLeft - 1;
     } else {
 			
       // Show alert to fight first
-      starWars.alertDanger("Time for fighty fighty first!");
+      starWars.alertDanger("Looking? Found someone to fight you have, eh?");
     }
   },
 
@@ -161,30 +185,43 @@ var starWars = {
       starWars.userHP = starWars.userHP - starWars.activeOpponentAvatar.counterAttack;
       $(".active-user-fighter .hit-points").text(starWars.userHP);
 
+      // Display Stats
+      starWars.alertDanger(
+        "You attacked " + starWars.activeOpponentAvatar.name + 
+        " for " + starWars.userDamage + " damage.\n" + 
+        starWars.activeOpponentAvatar.name + " attacked you back for " + 
+        starWars.activeOpponentAvatar.counterAttack + " damage."
+      );
+
       // Test for Dead
       if (starWars.userHP < 0) {
         // user has lost
-				starWars.alertDanger(starWars.activeUserAvatar.name + " is DEAD. (uh, that's you) " + starWars.activeUserAvatar.pronoun + " family will be sad. Thoughts and prayers. Now, try again.");
+				starWars.alertDanger(starWars.activeUserAvatar.name + " is DEAD. Hmm, you it was. " + starWars.activeUserAvatar.pronoun + " family will be sad. Try again you must.");
 				starWars.resetGame();
       } else if (starWars.opponentHP < 0) {
         // opponent has lost
 				starWars.alertDanger(starWars.activeOpponentAvatar.name + " is DEAD. " + starWars.activeOpponentAvatar.pronoun +" family will be sad.");
 				$(".active-opponent-fighter").empty();
 				starWars.fightActive = false;
-				starWars.opponentHP = 0;
+        starWars.opponentHP = 0;
+        // Test for win
+        if (starWars.opponentsLeft === 0){
+          starWars.winScreen();
+        }
       }
     } else {
-      starWars.alertDanger("Pick someone to fight first!");
+      starWars.alertDanger("Choose an opponent to fight first you must!");
     }
-	},
+  },
+  
+  // -- For the win
+  winScreen: function() {
+    $('.win-screen').removeClass("hide");
+    $('.message-area').addClass('visually-hidden');
+  },
 
 	alertDanger: function(message) {
-    $(".alert-danger")
-      .text(message)
-      .removeClass("hide");
-    setTimeout(function() {
-      $(".alert-danger").addClass("hide");
-    }, 4000);
+    $(".message").text(message).removeClass("visually-hidden");
   },
 
 };
